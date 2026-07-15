@@ -65,10 +65,11 @@ fun BusinessCard() {
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
-                        Color.White,
-                        Color(0xFFF5FCFF),
-                        Color(0xFFDDF4FF),
-                        Color(0xFFB8E8FF)
+                        Color(0xFFFFFFFF), // White
+                        Color(0xFFE3F2FD), // Very light blue
+                        Color(0xFFB8E8FF), // Sky blue
+                        Color(0xFFD1C4E9)  // Soft purple
+
                     )
                 )
             ),
@@ -93,7 +94,7 @@ fun BusinessCard() {
                 .clip(CircleShape)
                 .border(
                     width = 5.dp,
-                    color = Color(0xFF2E7D32),
+                    color = Color(0xFF212121),
                     shape = CircleShape
                 )
 
@@ -121,7 +122,7 @@ fun BusinessCard() {
 
             fontSize = 18.sp,
 
-            color = Color.Gray
+            color = Color.Blue
 
         )
 
