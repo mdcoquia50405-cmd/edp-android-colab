@@ -1,10 +1,10 @@
 package com.example.myapplication
 
 import android.content.res.Configuration
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -31,14 +31,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun ProfileScreen() {
-    // Task 1 — Center the layout vertically and horizontally
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -46,22 +43,25 @@ fun ProfileScreen() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
-        // Task 2 — Circular avatar with photo, background, and border
-        Image(
-            painter = painterResource(id = R.drawable.profile_photo),
-            contentDescription = "Profile Photo",
-            contentScale = ContentScale.Crop,
+        // Task 2 — Circular Avatar Initials Placeholder (MD)
+        Box(
             modifier = Modifier
                 .size(120.dp)
                 .clip(CircleShape)
                 .background(MaterialTheme.colorScheme.primary)
-                .border(2.dp, MaterialTheme.colorScheme.onPrimary, CircleShape)
-        )
+                .border(2.dp, MaterialTheme.colorScheme.onPrimary, CircleShape),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = "MD",
+                color = MaterialTheme.colorScheme.onPrimary,
+                style = MaterialTheme.typography.headlineSmall
+            )
+        }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Task 3 — Full name & subtitle using MaterialTheme typography
+        // Task 3 — Name & Course/Section
         Text(
             text = "Mark Daniel T. Coquia",
             style = MaterialTheme.typography.headlineSmall,
@@ -78,7 +78,7 @@ fun ProfileScreen() {
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Task 4 — Group content inside a Material 3 Card
+        // Task 4 — Material 3 Card
         Card(
             modifier = Modifier
                 .fillMaxWidth()
@@ -87,7 +87,7 @@ fun ProfileScreen() {
             Column(
                 modifier = Modifier.padding(16.dp)
             ) {
-                // Task 5 — 5 Reusable InfoRows called in the correct order
+                // Task 5 — 5 Reusable InfoRows
                 InfoRow(
                     icon = Icons.Default.Person,
                     label = "Full Name",
@@ -118,7 +118,7 @@ fun ProfileScreen() {
     }
 }
 
-// Task 5 — Reusable InfoRow Composable (DRY Principle)
+// Task 5 — Reusable InfoRow Composable
 @Composable
 fun InfoRow(
     icon: ImageVector,
@@ -154,11 +154,12 @@ fun InfoRow(
     }
 }
 
-// Task 6 — Verify Light AND Dark Previews
+
+
 @Preview(name = "Profile - Light", showBackground = true)
 @Composable
 fun ProfileScreenLightPreview() {
-    ProfileTheme(darkTheme = false) {
+    ProfileCardLabTheme(darkTheme = false) {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.surface
@@ -175,7 +176,7 @@ fun ProfileScreenLightPreview() {
 )
 @Composable
 fun ProfileScreenDarkPreview() {
-    ProfileTheme(darkTheme = true) {
+    ProfileCardLabTheme(darkTheme = true) {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.surface
