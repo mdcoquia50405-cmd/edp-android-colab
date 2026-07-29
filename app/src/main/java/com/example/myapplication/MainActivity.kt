@@ -13,9 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
-// ====================================================
-// LICEO MAROON & GOLD COLOR SCHEME
-// ====================================================
+
 
 // --- Light Palette ---
 val LiceoMaroonPrimary = Color(0xFF800000)          // Liceo Deep Maroon
