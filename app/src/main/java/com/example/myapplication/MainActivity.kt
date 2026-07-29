@@ -14,24 +14,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
 // ====================================================
-// LICEO MAROON & GOLD COLOR SCHEME DEFINITIONS
+// LICEO MAROON & GOLD COLOR SCHEME
 // ====================================================
 
-// --- Light Theme Palette ---
-val LiceoMaroonPrimary = Color(0xFF800000)          // Liceo Maroon
-val LiceoOnPrimary = Color(0xFFFFFFFF)              // White text/icons
-val LiceoGoldSecondary = Color(0xFFD4AF37)          // Golden Yellow Accent
+// --- Light Palette ---
+val LiceoMaroonPrimary = Color(0xFF800000)          // Liceo Deep Maroon
+val LiceoOnPrimary = Color(0xFFFFFFFF)              // Text/Icon on Maroon
+val LiceoGoldSecondary = Color(0xFFD4AF37)          // Gold Accent
 val LiceoSurfaceLight = Color(0xFFFFF8F6)           // Light warm background
-val LiceoOnSurfaceLight = Color(0xFF221A18)         // Primary text color
-val LiceoOnSurfaceVariantLight = Color(0xFF53433F)  // Muted label text color
+val LiceoOnSurfaceLight = Color(0xFF221A18)         // Primary text
+val LiceoOnSurfaceVariantLight = Color(0xFF53433F)  // Muted label text
 
-// --- Dark Theme Palette ---
-val LiceoMaroonDarkPrimary = Color(0xFFFFB4AB)      // Light Maroon accent for dark background
-val LiceoOnPrimaryDark = Color(0xFF560003)          // Dark text on primary button/badge
-val LiceoGoldSecondaryDark = Color(0xFFE6C18D)      // Soft Gold Accent for dark mode
+// --- Dark Palette ---
+val LiceoMaroonDarkPrimary = Color(0xFFFFB4AB)      // Light Maroon/Pink Accent
+val LiceoOnPrimaryDark = Color(0xFF560003)          // Dark text on primary
+val LiceoGoldSecondaryDark = Color(0xFFE6C18D)      // Soft Gold Accent
 val LiceoSurfaceDark = Color(0xFF1A1110)            // Dark surface background
-val LiceoOnSurfaceDark = Color(0xFFEDE0DE)          // Light text color for dark mode
-val LiceoOnSurfaceVariantDark = Color(0xFFD8C2BC)   // Soft label text color
+val LiceoOnSurfaceDark = Color(0xFFEDE0DE)          // Light text
+val LiceoOnSurfaceVariantDark = Color(0xFFD8C2BC)   // Soft label text
 
 private val LightColorScheme = lightColorScheme(
     primary = LiceoMaroonPrimary,
@@ -52,7 +52,7 @@ private val DarkColorScheme = darkColorScheme(
 )
 
 @Composable
-fun ProfileTheme(
+fun ProfileCardLabTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
@@ -67,7 +67,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            ProfileTheme {
+            ProfileCardLabTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.surface
