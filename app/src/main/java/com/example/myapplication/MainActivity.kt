@@ -1,221 +1,80 @@
-package com.example.businesscard
+package com.example.myapplication
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.myapplication.R
 
-class MainActivity : ComponentActivity() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setContent {
-
-            MaterialTheme {
-
-                Surface(
-                    modifier = Modifier.fillMaxSize()
-                ) {
-
-                    BusinessCard()
-
-                }
-
-            }
-
-        }
-    }
-}
-
-@Composable
-fun BusinessCard() {
-
-    Column(
-
-        modifier = Modifier
-            .fillMaxSize()
-            .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(
-                        Color(0xFFFFFFFF), // White
-                        Color(0xFFE3F2FD), // Very light blue
-                        Color(0xFFB8E8FF), // Sky blue
-                        Color(0xFFD1C4E9)  // Soft purple
-
-                    )
-                )
-            ),
-
-        horizontalAlignment = Alignment.CenterHorizontally,
-
-        verticalArrangement = Arrangement.Center
-
-    ) {
-
-        // Profile Picture
-        Image(
-
-            painter = painterResource(
-                id = R.drawable.profile_photo
-            ),
-
-            contentDescription = "Profile Photo",
-
-            modifier = Modifier
-                .size(150.dp)
-                .clip(CircleShape)
-                .border(
-                    width = 5.dp,
-                    color = Color(0xFF212121),
-                    shape = CircleShape
-                )
-
-        )
-
-        Spacer(
-            modifier = Modifier.height(20.dp)
-        )
-
-        Text(
-
-            text = "Mark Daniel T. Coquia",
-
-            fontSize = 32.sp,
-
-            fontWeight = FontWeight.Bold,
-
-            color = Color.DarkGray
-
-        )
-
-        Text(
-
-            text = "Information Technology Student",
-
-            fontSize = 18.sp,
-
-            color = Color.Blue
-
-        )
-
-        Spacer(
-            modifier = Modifier.height(30.dp)
-        )
-
-        ContactRow(
-
-            icon = "☎",
-
-            text = "+63 992 042 1391"
-
-        )
-
-        Spacer(
-            modifier = Modifier.height(15.dp)
-        )
-
-        ContactRow(
-
-            icon = "✉",
-
-            text = "mdcoquia50405@liceo.edu.ph"
-
-        )
-
-    }
-
-}
-
-@Composable
-fun ContactRow(
-
-    icon: String,
-
-    text: String
-
-) {
-
-    Row(
-
-        modifier = Modifier
-            .clickable {
-
-                // action placeholder
-
-            },
-
-        verticalAlignment = Alignment.CenterVertically
-
-    ) {
-
-        Text(
-
-            text = icon,
-
-            fontSize = 28.sp,
-
-            color = Color(0xFF2E7D32)
-
-        )
-
-        Spacer(
-
-            modifier = Modifier.width(12.dp)
-
-        )
-
-        Text(
-
-            text = text,
-
-            fontSize = 18.sp
-
-        )
-
-    }
-
-}
-
-@Preview(
-    showBackground = true,
-    showSystemUi = true
+// ====================================================
+// LICEO MAROON & GOLD COLOR SCHEME DEFINITIONS
+// ====================================================
+
+// --- Light Theme Palette ---
+val LiceoMaroonPrimary = Color(0xFF800000)          // Liceo Maroon
+val LiceoOnPrimary = Color(0xFFFFFFFF)              // White text/icons
+val LiceoGoldSecondary = Color(0xFFD4AF37)          // Golden Yellow Accent
+val LiceoSurfaceLight = Color(0xFFFFF8F6)           // Light warm background
+val LiceoOnSurfaceLight = Color(0xFF221A18)         // Primary text color
+val LiceoOnSurfaceVariantLight = Color(0xFF53433F)  // Muted label text color
+
+// --- Dark Theme Palette ---
+val LiceoMaroonDarkPrimary = Color(0xFFFFB4AB)      // Light Maroon accent for dark background
+val LiceoOnPrimaryDark = Color(0xFF560003)          // Dark text on primary button/badge
+val LiceoGoldSecondaryDark = Color(0xFFE6C18D)      // Soft Gold Accent for dark mode
+val LiceoSurfaceDark = Color(0xFF1A1110)            // Dark surface background
+val LiceoOnSurfaceDark = Color(0xFFEDE0DE)          // Light text color for dark mode
+val LiceoOnSurfaceVariantDark = Color(0xFFD8C2BC)   // Soft label text color
+
+private val LightColorScheme = lightColorScheme(
+    primary = LiceoMaroonPrimary,
+    onPrimary = LiceoOnPrimary,
+    secondary = LiceoGoldSecondary,
+    surface = LiceoSurfaceLight,
+    onSurface = LiceoOnSurfaceLight,
+    onSurfaceVariant = LiceoOnSurfaceVariantLight
+)
+
+private val DarkColorScheme = darkColorScheme(
+    primary = LiceoMaroonDarkPrimary,
+    onPrimary = LiceoOnPrimaryDark,
+    secondary = LiceoGoldSecondaryDark,
+    surface = LiceoSurfaceDark,
+    onSurface = LiceoOnSurfaceDark,
+    onSurfaceVariant = LiceoOnSurfaceVariantDark
 )
 
 @Composable
-fun BusinessCardPreview() {
+fun ProfileTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable () -> Unit
+) {
+    val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
+    MaterialTheme(
+        colorScheme = colorScheme,
+        content = content
+    )
+}
 
-    MaterialTheme {
-
-        BusinessCard()
-
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            ProfileTheme {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.surface
+                ) {
+                    ProfileScreen()
+                }
+            }
+        }
     }
-
 }
