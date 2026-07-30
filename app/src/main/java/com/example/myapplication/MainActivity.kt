@@ -1,79 +1,110 @@
-package com.example.myapplication
+package com.example.labactivity5 // Adjust package name if yours is different
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.lightColorScheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-
-// ====================================================
-// LICEO MAROON & GOLD COLOR SCHEME DEFINITIONS
-// ====================================================
-
-// --- Light Theme Palette ---
-val LiceoMaroonPrimary = Color(0xFF800000)          // Liceo Maroon
-val LiceoOnPrimary = Color(0xFFFFFFFF)              // White text/icons
-val LiceoGoldSecondary = Color(0xFFD4AF37)          // Golden Yellow Accent
-val LiceoSurfaceLight = Color(0xFFFFF8F6)           // Light warm background
-val LiceoOnSurfaceLight = Color(0xFF221A18)         // Primary text color
-val LiceoOnSurfaceVariantLight = Color(0xFF53433F)  // Muted label text color
-
-// --- Dark Theme Palette ---
-val LiceoMaroonDarkPrimary = Color(0xFFFFB4AB)      // Light Maroon accent for dark background
-val LiceoOnPrimaryDark = Color(0xFF560003)          // Dark text on primary button/badge
-val LiceoGoldSecondaryDark = Color(0xFFE6C18D)      // Soft Gold Accent for dark mode
-val LiceoSurfaceDark = Color(0xFF1A1110)            // Dark surface background
-val LiceoOnSurfaceDark = Color(0xFFEDE0DE)          // Light text color for dark mode
-val LiceoOnSurfaceVariantDark = Color(0xFFD8C2BC)   // Soft label text color
-
-private val LightColorScheme = lightColorScheme(
-    primary = LiceoMaroonPrimary,
-    onPrimary = LiceoOnPrimary,
-    secondary = LiceoGoldSecondary,
-    surface = LiceoSurfaceLight,
-    onSurface = LiceoOnSurfaceLight,
-    onSurfaceVariant = LiceoOnSurfaceVariantLight
-)
-
-private val DarkColorScheme = darkColorScheme(
-    primary = LiceoMaroonDarkPrimary,
-    onPrimary = LiceoOnPrimaryDark,
-    secondary = LiceoGoldSecondaryDark,
-    surface = LiceoSurfaceDark,
-    onSurface = LiceoOnSurfaceDark,
-    onSurfaceVariant = LiceoOnSurfaceVariantDark
-)
-
-@Composable
-fun ProfileTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable () -> Unit
-) {
-    val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
-    MaterialTheme(
-        colorScheme = colorScheme,
-        content = content
-    )
-}
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            ProfileTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.surface
-                ) {
-                    ProfileScreen()
+            MaterialTheme {
+                Surface(modifier = Modifier.fillMaxSize()) {
+                    ReactiveScreen()
                 }
+            }
+        }
+    }
+}
+
+@Composable
+fun ReactiveScreen() {
+    // State declaration:
+    // 'count' uses remember (or rememberSaveable if you want count to also survive rotation)
+    var count by remember { mutableStateOf(0) }
+
+    // 'name' uses rememberSaveable so state survives screen rotation (Part C)
+    var name by rememberSaveable { mutableStateOf("") }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        // --- Part B: Greeting & Text Field ---
+        Text(
+            text = if (name.isBlank()) "Hello, stranger!" else "Hello, $name!",
+            fontSize = 26.sp,
+            fontWeight = FontWeight.Bold
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        OutlinedTextField(
+            value = name,
+            onValueChange = { name = it }, // Write triggers recomposition
+            label = { Text("Enter your name") }
+        )
+
+        Spacer(modifier = Modifier.height(32.dp))
+
+        // --- Part D: Hoisted Counter Component ---
+        CounterControls(
+            count = count,
+            onIncrement = { count++ },
+            onDecrement = { count-- },
+            onReset = { count = 0 }
+        )
+    }
+}
+
+// --- Part D (Bonus): Stateless Counter Component ---
+@Composable
+fun CounterControls(
+    count: Int,                // Data flows DOWN
+    onIncrement: () -> Unit,   // Events flow UP
+    onDecrement: () -> Unit,
+    onReset: () -> Unit
+) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(text = "Count: $count", fontSize = 24.sp)
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            Button(onClick = onDecrement) {
+                Text("–")
+            }
+            Button(onClick = onReset) {
+                Text("Reset")
+            }
+            Button(onClick = onIncrement) {
+                Text("+")
             }
         }
     }
