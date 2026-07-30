@@ -1,4 +1,4 @@
-package com.example.labactivity5 // Adjust package name if yours is different
+package com.example.labactivity5 
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
