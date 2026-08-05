@@ -1,4 +1,4 @@
-package com.example.myapplication // ⚠️ Replace with your actual package name at the top of your file
+package com.example.labactivity5 // Adjust package name if yours is different
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -24,7 +24,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -43,10 +42,11 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun ReactiveScreen() {
-    // Part A: Counter state using 'remember'
+    // State declaration:
+    // 'count' uses remember (or rememberSaveable if you want count to also survive rotation)
     var count by remember { mutableStateOf(0) }
 
-    // Part C: Name state using 'rememberSaveable' so it survives screen rotation
+    // 'name' uses rememberSaveable so state survives screen rotation (Part C)
     var name by rememberSaveable { mutableStateOf("") }
 
     Column(
@@ -67,13 +67,13 @@ fun ReactiveScreen() {
 
         OutlinedTextField(
             value = name,
-            onValueChange = { name = it }, // Write updates the state
+            onValueChange = { name = it }, // Write triggers recomposition
             label = { Text("Enter your name") }
         )
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        // --- Part D (Bonus): Hoisted Counter Component ---
+        // --- Part D: Hoisted Counter Component ---
         CounterControls(
             count = count,
             onIncrement = { count++ },
@@ -106,17 +106,6 @@ fun CounterControls(
             Button(onClick = onIncrement) {
                 Text("+")
             }
-        }
-    }
-}
-
-// Preview Panel Support
-@Preview(showBackground = true)
-@Composable
-fun ReactiveScreenPreview() {
-    MaterialTheme {
-        Surface {
-            ReactiveScreen()
         }
     }
 }
